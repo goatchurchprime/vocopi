@@ -1,0 +1,37 @@
+The voice analyzer runs on startup on the raspberrypi
+
+See what is enabled with:
+> systemctl list-unit-files | grep enabled
+
+/etc/systemd/system/multi-user.target.wants/voice-recognizer.service -> /lib/systemd/system/voice-recognizer.service
+
+This file then contains:
+-----------------------
+[Unit]
+Description=voice recognizer
+After=network.target ntpdate.service
+
+[Service]
+Environment=VIRTUAL_ENV=/home/pi/voice-recognizer-raspi/env
+Environment=PATH=/home/pi/voice-recognizer-raspi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/home/pi/voice-recognizer-raspi/env/bin/python3 -u src/main.py
+WorkingDirectory=/home/pi/voice-recognizer-raspi
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+------------------------
+
+Check its status with the command:
+> sudo service voice-recognizer status
+
+Commands you need to control it are:
+> sudo update-rc.d voice-recognizer (dis)enable   # startup condition for the daemon
+> sudo service voice-recognizer stop/start        # starts or stops the daemon after booting
+
+
+
+
