@@ -32,6 +32,9 @@ Commands you need to control it are:
 > sudo update-rc.d voice-recognizer (dis)enable   # startup condition for the daemon
 > sudo service voice-recognizer stop/start        # starts or stops the daemon after booting
 
+^^^I think is out of date.  Do by:
+sudo systemctl status/disable/enable voice-recognizer
+see:  https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/
 
 
 

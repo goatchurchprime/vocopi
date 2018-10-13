@@ -137,6 +137,13 @@ def shortjblips(n, *lf):
     aplay.stdin.close()
     aplay.wait()
 
+def fsay(words, voice=slt):  # flite -lv -> kal awb_time kal16 awb rms slt
+    cmd = [ 'flite', '-voice', voice ]
+    sflite = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+    sflite.stdin.write(words)
+    sflite.stdin.close()
+    sflite.wait()
+
 
 
 class Player(object):
